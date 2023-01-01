@@ -6,26 +6,30 @@
 template<class T>
 class table
 {
+protected:
+    T** arr;
 public:
-    int** arr;
     table(int rows, int cols) 
     {
-        arr = new int* [rows];
+        arr = new T* [rows];
         for (int a = 0; a < rows; ++a) {
-            arr[a] = new int[cols];
+            arr[a] = new T[cols];
         }
     };
-    int* operator[](const int i)
+    T* operator[](const int i)
     {
         return arr[i];
     }
+    //table(const table&) = delete; //при добавлении этой функции программа падает, т.к. ссылается на функцию которая удалена
+    table& operator=(const table&) = delete;
 };
 
 int main(int argc, char** argv)
 {
     setlocale(LC_ALL, "Russian");
 
-    auto test = table<int>(2, 3);
+    auto test = table<double>(2, 3);
+    auto test2 = test;
     test[0][0] = 4;
     std::cout << test[0][0]; // выводит 4
 }
