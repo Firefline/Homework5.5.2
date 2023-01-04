@@ -8,9 +8,11 @@ class table
 {
 protected:
     T** arr;
+    int rows;
 public:
     table(int rows, int cols) 
     {
+        this->rows = rows;
         arr = new T* [rows];
         for (int a = 0; a < rows; ++a) {
             arr[a] = new T[cols];
@@ -24,6 +26,10 @@ public:
     table& operator=(const table&) = delete;
     ~table()
     {
+        for (int a = 0; a < rows; ++a)
+        {
+            delete[] arr[a];
+        }
         delete[] arr;
     }
 };
